@@ -21,9 +21,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libjpeg62-turbo \
     && rm -rf /var/lib/apt/lists/*
 
-COPY pyproject.toml ./
+COPY pyproject.toml README.md ./
 COPY services ./services
-COPY data/models ./data/models
 
 # Store offline OCR models in /opt/saher-models/tessdata as well as /app/data/models/tessdata
 # so mounting a persistent Docker volume on /app/data never shadows the traineddata files.
@@ -41,18 +40,18 @@ RUN pip install --no-cache-dir -e .
 
 EXPOSE 8765
 
-CMD ["uvicorn", "services.api.main:app", "--host", "0.0.0.0", "--port", "8765"]
+CMD ["uvicorn", "services.workflow:app", "--host", "0.0.0.0", "--port", "8765"]
 
 
 FROM node:22-alpine AS web-build
 
 WORKDIR /app
 
-COPY package.json ./
+COPY package.json package-lock.json ./
 COPY scripts ./scripts
 COPY apps/web/package.json ./apps/web/package.json
 
-RUN npm install
+RUN npm ci --no-audit --no-fund
 
 COPY apps/web ./apps/web
 

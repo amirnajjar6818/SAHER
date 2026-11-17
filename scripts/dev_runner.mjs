@@ -306,7 +306,7 @@ if (mode === "dev") {
       ensureLocalModels();
       apiProc = spawn(
         pyBin,
-        ["-m", "uvicorn", "services.api.main:app", "--host", "127.0.0.1", "--port", apiPort],
+        ["-m", "uvicorn", "services.workflow:app", "--host", "127.0.0.1", "--port", apiPort],
         {
           cwd: rootDir,
           env: pyEnv,
@@ -459,7 +459,7 @@ if (mode === "dev") {
   ensureSystemAndPythonDepsSync(pyBin, pyEnv);
   const proc = spawnManaged(
     pyBin,
-    ["-m", "uvicorn", "services.api.main:app", "--host", "127.0.0.1", "--port", apiPort],
+    ["-m", "uvicorn", "services.workflow:app", "--host", "127.0.0.1", "--port", apiPort],
     { env: pyEnv },
   );
   proc.on("exit", (code) => process.exit(code ?? 0));

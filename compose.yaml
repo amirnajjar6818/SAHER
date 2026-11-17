@@ -15,15 +15,6 @@ services:
       interval: 5s
       timeout: 3s
       retries: 10
-  worker:
-    image: saher-backend:local
-    command: ["python", "-m", "services.worker.runner"]
-    depends_on:
-      api:
-        condition: service_healthy
-    volumes:
-      - archive:/app/data
-    restart: unless-stopped
   web:
     build:
       context: .
