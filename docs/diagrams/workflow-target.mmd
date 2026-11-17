@@ -1,0 +1,67 @@
+flowchart TD
+  settings["تنظیمات: منابع، گروه‌ها، برچسب‌ها، قالب‌ها، دسترسی و آستانهٔ بازبینی"]
+  subgraph inputs["۱. ورودی‌ها"]
+    word["ورد و محتوای وب"]
+    pdf["اسناد و صفحات اسکن‌شده"]
+    photo["عکس و تصاویر دوربین"]
+    other["صفحه‌گسترده، صدا و سایر فایل‌ها"]
+    screen["اسکرین‌شات و تصویر"]
+    video["ویدئو"]
+  end
+  subgraph prep["۲. آماده‌سازی و حفاظت"]
+    register["ثبت منبع، زمان، مجوز و شناسهٔ فایل"]
+    quarantine["قرنطینه و بررسی سلامت"]
+    privacy["پوشاندن چهره، پلاک، نام و شناسه‌های شخصی"]
+    extract["استخراج متن، محتوای صوتی و فراداده"]
+    register --> quarantine --> privacy --> extract
+  end
+  word --> register
+  pdf --> register
+  photo --> register
+  other --> register
+  screen --> register
+  video --> register
+  subgraph analysis["۳. تحلیل و تکمیل اطلاعات"]
+    tag["تفکیک و برچسب‌گذاری محتوا یا رویداد"]
+    category["طبقه‌بندی موضوعی قابل تنظیم"]
+    exists{"پرونده یا رویداد مجاز موجود است؟"}
+    method{"روش تکمیل اطلاعات"}
+    manual["ورود دستی همراه ثبت واردکننده و منبع"]
+    public["جست‌وجوی منابع عمومی همراه پیوند، تاریخ و منبع"]
+    validate["بازبینی انسانی اعتبار و ارتباط منابع"]
+    temporary["ایجاد رکورد موقت محتوا یا رویداد"]
+    link["اتصال به پرونده یا رویداد موجود"]
+    merge["ترکیب سوابق مرتبط با محتوا و شواهد جدید"]
+    quality{"اطمینان و کیفیت تحلیل کافی است؟"}
+    human["بازبینی انسانی و ثبت موارد نامشخص"]
+    tag --> category --> exists
+    exists -->|خیر| method
+    method -->|دستی| manual
+    method -->|منابع عمومی| public
+    manual --> validate
+    public --> validate
+    validate --> temporary --> merge
+    exists -->|بله| link --> merge
+    merge --> quality
+    quality -->|نیازمند بررسی| human
+  end
+  extract --> tag
+  subgraph output["۴. خروجی و بازبینی"]
+    template["انتخاب قالب خروجی"]
+    organization["گردش کار سازمانی"]
+    security["صف بازبینی سیاست امنیتی"]
+    culture["صف بازبینی سیاست فرهنگی و اجتماعی"]
+    reviewer["بازبینی مسئول مجاز و ثبت دلیل تصمیم"]
+    report["گزارش نهایی، سابقهٔ تغییرات و زمان نگهداری"]
+    template --> organization --> reviewer
+    template --> security --> reviewer
+    template --> culture --> reviewer
+    reviewer --> report
+  end
+  quality -->|کافی| template
+  human --> template
+  settings -.-> register
+  settings -.-> category
+  settings -.-> method
+  settings -.-> quality
+  settings -.-> template

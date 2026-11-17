@@ -36,3 +36,9 @@ http://127.0.0.1:8730/
 ```sh
 python -m pytest tests/test_workflow_reset.py -q
 ```
+
+## مستندات
+
+- [معماری فعال و قواعد داده](docs/ARCHITECTURE.md)
+- [وضعیت توسعه و قابلیت‌های تکمیل‌نشده](docs/DEVELOPMENT_STATUS.md)
+- [نمودار هدف، مسیر فعلی و تصویر مرجع](docs/WORKFLOW.md)
