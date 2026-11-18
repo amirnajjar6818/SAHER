@@ -193,6 +193,10 @@ dt {
 dd {
   margin-inline-start: 0;
 }
+.content-text {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
 button:focus-visible,
 a:focus-visible {
   outline: 3px solid #b8cc83;
@@ -227,3 +231,10 @@ a:focus-visible {
     margin: 0;
   }
 }
+.security-tools { border: 1px solid #cbd5e1; border-radius: 12px; padding: 18px; margin: 20px 0; }
+.security-tools .mask-preview { margin: 16px 0; cursor: crosshair; direction: ltr; }
+.batch-results { max-height: 360px; overflow-y: auto; border-top: 1px solid #d6dfe1; margin-top: 12px; }
+.batch-results p { border-bottom: 1px solid #edf0f1; padding: 10px 0; overflow-wrap: anywhere; }
+.folder-filters { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 20px; }
+progress { width: 100%; height: 20px; }
+fieldset { border: 0; padding: 0; min-width: 0; display: grid; gap: 12px; }

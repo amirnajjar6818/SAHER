@@ -9,6 +9,8 @@ __pycache__
 data/saher.db*
 data/files/*
 data/storage/*
+data/test-*
+data/
 .saher-deploy-*
 .aistudio
 .playwright-cli

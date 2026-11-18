@@ -21,6 +21,9 @@ dependencies = [
     "reportlab>=4.0.0",
     "python-docx>=1.1.0",
     "openpyxl>=3.1.2",
+    "numpy>=1.26,<3",
+    "opencv-python-headless>=4.10,<5",
+    "onnxruntime>=1.19,<2",
 ]
 
 [project.optional-dependencies]

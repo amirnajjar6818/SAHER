@@ -21,8 +21,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libjpeg62-turbo \
     && rm -rf /var/lib/apt/lists/*
 
-COPY pyproject.toml README.md ./
+COPY pyproject.toml ./
+RUN python -c "import tomllib,subprocess; subprocess.check_call(['pip','install','--no-cache-dir',*tomllib.load(open('pyproject.toml','rb'))['project']['dependencies']])"
+COPY README.md ./
 COPY services ./services
+COPY vendor/privacy-models /opt/saher-models/privacy
 
 # Store offline OCR models in /opt/saher-models/tessdata as well as /app/data/models/tessdata
 # so mounting a persistent Docker volume on /app/data never shadows the traineddata files.
@@ -36,7 +39,7 @@ RUN mkdir -p /opt/saher-models/tessdata /app/data/models/tessdata && \
       fi; \
     done
 
-RUN pip install --no-cache-dir -e .
+RUN pip install --no-cache-dir --no-deps -e .
 
 EXPOSE 8765
 
@@ -48,11 +51,11 @@ FROM node:22-alpine AS web-build
 WORKDIR /app
 
 COPY package.json package-lock.json ./
-COPY scripts ./scripts
 COPY apps/web/package.json ./apps/web/package.json
 
 RUN npm ci --no-audit --no-fund
 
+COPY scripts ./scripts
 COPY apps/web ./apps/web
 
 RUN npm run build
